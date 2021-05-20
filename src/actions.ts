@@ -25,3 +25,19 @@ export const getUsers = async (req: Request, res: Response): Promise<Response> =
 		const users = await getRepository(Users).find();
 		return res.json(users);
 }
+
+
+export const addToDo = async (req: Request, res: Response): Promise<Response> =>{
+		const users = await getRepository(Users).find();
+		return res.json(users);
+}
+
+export const deleteToDo = async (req: Request, res: Response): Promise<Response> =>{
+		const users = await getRepository(Users).find();
+		return res.json(users);
+}
+
+export const getToDo = async (req: Request, res: Response): Promise<Response> =>{
+		const users = await getRepository(Users).find();
+		return res.json(users);
+}

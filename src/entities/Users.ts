@@ -1,7 +1,9 @@
 import {
-  Entity, Column, PrimaryGeneratedColumn, ManyToMany, 
+  Entity, Column, PrimaryGeneratedColumn, ManyToOne, 
   BaseEntity, JoinTable
 } from 'typeorm';
+
+import { Todo } from './Todo';
 
 @Entity()
 export class Users extends BaseEntity{
@@ -20,8 +22,8 @@ export class Users extends BaseEntity{
   @Column()
   password: string;
 
-  // @ManyToMany(() => Planet)
-  // @JoinTable()
-  // planets: Planet[];
+  @ManyToOne(() => Todo, )
+  @JoinTable()
+  lista: Todo[];
   
 }
