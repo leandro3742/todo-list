@@ -1,5 +1,5 @@
 import {
-  Entity, Column, PrimaryGeneratedColumn, OneToMany, 
+  Entity, Column, PrimaryGeneratedColumn, ManyToOne, 
   BaseEntity, JoinTable
 } from 'typeorm';
 
@@ -16,7 +16,7 @@ export class Todo extends BaseEntity{
   @Column()
   finished: boolean;
 
-  @OneToMany(() =>Users, user => user.first_name)
-  user: Users;
+  @ManyToOne(() =>Users, user => user.id)
+  user: Users;  
   
 }

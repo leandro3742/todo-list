@@ -1,5 +1,5 @@
 import {
-  Entity, Column, PrimaryGeneratedColumn, ManyToOne, 
+  Entity, Column, PrimaryGeneratedColumn, OneToMany, 
   BaseEntity, JoinTable
 } from 'typeorm';
 
@@ -11,18 +11,9 @@ export class Users extends BaseEntity{
   id: number;
 
   @Column()
-  first_name: string;
+  name: string;
 
-  @Column()
-  last_name: string;
-
-  @Column({unique: true})
-  email: string;
-
-  @Column()
-  password: string;
-
-  @ManyToOne(() => Todo, lista => lista.description)
-  lista: Todo;
+  @OneToMany(() => Todo, toDo => toDo.description)
+  toDo: Todo;
   
 }

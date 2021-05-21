@@ -39,23 +39,11 @@ var Users = /** @class */ (function (_super) {
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Users.prototype, "first_name");
+    ], Users.prototype, "name");
     __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", String)
-    ], Users.prototype, "last_name");
-    __decorate([
-        typeorm_1.Column({ unique: true }),
-        __metadata("design:type", String)
-    ], Users.prototype, "email");
-    __decorate([
-        typeorm_1.Column(),
-        __metadata("design:type", String)
-    ], Users.prototype, "password");
-    __decorate([
-        typeorm_1.ManyToOne(function () { return Todo_1.Todo; }, function (lista) { return lista.description; }),
+        typeorm_1.OneToMany(function () { return Todo_1.Todo; }, function (toDo) { return toDo.description; }),
         __metadata("design:type", Todo_1.Todo)
-    ], Users.prototype, "lista");
+    ], Users.prototype, "toDo");
     Users = __decorate([
         typeorm_1.Entity()
     ], Users);

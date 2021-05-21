@@ -45,7 +45,7 @@ var Todo = /** @class */ (function (_super) {
         __metadata("design:type", Boolean)
     ], Todo.prototype, "finished");
     __decorate([
-        typeorm_1.OneToMany(function () { return Users_1.Users; }, function (user) { return user.first_name; }),
+        typeorm_1.ManyToOne(function () { return Users_1.Users; }, function (user) { return user.id; }),
         __metadata("design:type", Users_1.Users)
     ], Todo.prototype, "user");
     Todo = __decorate([
