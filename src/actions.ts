@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { getRepository } from 'typeorm'  // getRepository"  traer una tabla de la base de datos asociada al objeto
 import { Users } from './entities/Users'
+import { Todo } from './entities/Todo'
 import { Exception } from './utils'
 
 export const createUser = async (req: Request, res:Response): Promise<Response> =>{
@@ -22,22 +23,28 @@ export const createUser = async (req: Request, res:Response): Promise<Response> 
 }
 
 export const getUsers = async (req: Request, res: Response): Promise<Response> =>{
-		const users = await getRepository(Users).find();
-		return res.json(users);
+    const users = await getRepository(Users).find(); // Funciona como un SELECT * FROM Users;
+    return res.json(users);
 }
 
 
 export const addToDo = async (req: Request, res: Response): Promise<Response> =>{
-		const users = await getRepository(Users).find();
-		return res.json(users);
+    const newToDo = getRepository(Todo).create(req.body);  //Creo una tarea
+    const toDo = await getRepository(Todo).findOne({ where: {id: req.body.id }}) //Reviso que no exista previamente
+    if(toDo) throw new Exception("La tarea ya existe"); //No permito que cree la tarea si ya existe una
+    const results = await getRepository(Todo).save(newToDo); //Grabo la nueva tarea 
+
+    return res.json(results);
 }
 
 export const deleteToDo = async (req: Request, res: Response): Promise<Response> =>{
-		const users = await getRepository(Users).find();
-		return res.json(users);
+    // fetch for exist a toDo with this id
+    const toDo = await getRepository(Todo).findOne(req.params.id)
+    
+    return res.json(toDo);
 }
 
 export const getToDo = async (req: Request, res: Response): Promise<Response> =>{
-		const users = await getRepository(Users).find();
-		return res.json(users);
+    const toDo = await getRepository(Todo).find();
+    return res.json(toDo);
 }
