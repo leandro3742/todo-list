@@ -7,12 +7,16 @@ import {Users} from './Users';
 
 @Entity()
 export class Todo extends BaseEntity{
+  @PrimaryGeneratedColumn()
+  id: number;
 
+  @Column()
+  description: string;
+  
   @Column()
   finished: boolean;
 
-  @OneToMany(() =>Users, user => Users.name)
-  @JoinTable()
+  @OneToMany(() =>Users, user => user.first_name)
   user: Users;
   
 }

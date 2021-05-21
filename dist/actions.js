@@ -39,6 +39,7 @@ exports.__esModule = true;
 exports.getToDo = exports.deleteToDo = exports.addToDo = exports.getUsers = exports.createUser = void 0;
 var typeorm_1 = require("typeorm"); // getRepository"  traer una tabla de la base de datos asociada al objeto
 var Users_1 = require("./entities/Users");
+var Todo_1 = require("./entities/Todo");
 var utils_1 = require("./utils");
 var createUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var userRepo, user, newUser, results;
@@ -82,37 +83,50 @@ var getUsers = function (req, res) { return __awaiter(void 0, void 0, void 0, fu
 }); };
 exports.getUsers = getUsers;
 var addToDo = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var users;
+    var newToDo, toDo, results;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).find()];
+            case 0:
+                newToDo = typeorm_1.getRepository(Todo_1.Todo).create(req.body);
+                return [4 /*yield*/, typeorm_1.getRepository(Todo_1.Todo).findOne({ where: { id: req.body.id } })]; //Reviso que no exista previamente
             case 1:
-                users = _a.sent();
-                return [2 /*return*/, res.json(users)];
+                toDo = _a.sent() //Reviso que no exista previamente
+                ;
+                if (toDo)
+                    throw new utils_1.Exception("La tarea ya existe"); //No permito que cree la tarea si ya existe una
+                return [4 /*yield*/, typeorm_1.getRepository(Todo_1.Todo).save(newToDo)];
+            case 2:
+                results = _a.sent();
+                return [2 /*return*/, res.json(results)];
         }
     });
 }); };
 exports.addToDo = addToDo;
 var deleteToDo = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var users;
+    var probar, toDo;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).find()];
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Todo_1.Todo).findOne(req.params.id)];
             case 1:
-                users = _a.sent();
-                return [2 /*return*/, res.json(users)];
+                probar = _a.sent();
+                if (!probar)
+                    throw new utils_1.Exception("La tarea no existe");
+                return [4 /*yield*/, typeorm_1.getRepository(Todo_1.Todo)["delete"](req.params.id)];
+            case 2:
+                toDo = _a.sent();
+                return [2 /*return*/, res.json(toDo)];
         }
     });
 }); };
 exports.deleteToDo = deleteToDo;
 var getToDo = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var users;
+    var toDo;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).find()];
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Todo_1.Todo).find()];
             case 1:
-                users = _a.sent();
-                return [2 /*return*/, res.json(users)];
+                toDo = _a.sent();
+                return [2 /*return*/, res.json(toDo)];
         }
     });
 }); };

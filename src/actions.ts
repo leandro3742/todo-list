@@ -39,8 +39,9 @@ export const addToDo = async (req: Request, res: Response): Promise<Response> =>
 
 export const deleteToDo = async (req: Request, res: Response): Promise<Response> =>{
     // fetch for exist a toDo with this id
-    const toDo = await getRepository(Todo).findOne(req.params.id)
-    
+    const probar = await getRepository(Todo).findOne(req.params.id)
+    if(!probar) throw new Exception("La tarea no existe");
+    const toDo = await getRepository(Todo).delete(req.params.id)
     return res.json(toDo);
 }
 

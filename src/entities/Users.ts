@@ -22,8 +22,7 @@ export class Users extends BaseEntity{
   @Column()
   password: string;
 
-  @ManyToOne(() => Todo, )
-  @JoinTable()
-  lista: Todo[];
+  @ManyToOne(() => Todo, lista => lista.description)
+  lista: Todo;
   
 }

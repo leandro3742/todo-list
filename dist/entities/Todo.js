@@ -33,12 +33,19 @@ var Todo = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     __decorate([
+        typeorm_1.PrimaryGeneratedColumn(),
+        __metadata("design:type", Number)
+    ], Todo.prototype, "id");
+    __decorate([
+        typeorm_1.Column(),
+        __metadata("design:type", String)
+    ], Todo.prototype, "description");
+    __decorate([
         typeorm_1.Column(),
         __metadata("design:type", Boolean)
     ], Todo.prototype, "finished");
     __decorate([
-        typeorm_1.OneToMany(function () { return Users_1.Users; }, function (user) { return Users_1.Users.name; }),
-        typeorm_1.JoinTable(),
+        typeorm_1.OneToMany(function () { return Users_1.Users; }, function (user) { return user.first_name; }),
         __metadata("design:type", Users_1.Users)
     ], Todo.prototype, "user");
     Todo = __decorate([
