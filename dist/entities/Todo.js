@@ -39,11 +39,11 @@ var Todo = /** @class */ (function (_super) {
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", String)
-    ], Todo.prototype, "description");
+    ], Todo.prototype, "label");
     __decorate([
         typeorm_1.Column(),
         __metadata("design:type", Boolean)
-    ], Todo.prototype, "finished");
+    ], Todo.prototype, "done");
     __decorate([
         typeorm_1.ManyToOne(function () { return Users_1.Users; }, function (user) { return user.id; }),
         __metadata("design:type", Users_1.Users)

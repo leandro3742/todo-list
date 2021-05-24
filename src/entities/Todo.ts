@@ -11,10 +11,10 @@ export class Todo extends BaseEntity{
   id: number;
 
   @Column()
-  description: string;
+  label: string;
   
   @Column()
-  finished: boolean;
+  done: boolean;
 
   @ManyToOne(() =>Users, user => user.id)
   user: Users;  

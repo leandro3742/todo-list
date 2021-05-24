@@ -11,9 +11,18 @@ export class Users extends BaseEntity{
   id: number;
 
   @Column()
-  name: string;
+  first_name: string;
 
-  @OneToMany(() => Todo, toDo => toDo.description)
+  @Column()
+  last_name: string;
+
+  @Column()
+  email: string;
+
+  @Column()
+  password: string;
+
+  @OneToMany(() => Todo, toDo => toDo.label)
   toDo: Todo;
   
 }

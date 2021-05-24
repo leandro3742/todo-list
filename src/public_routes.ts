@@ -14,7 +14,7 @@ const router = Router();
 
 // signup route, creates a new user in the DB
 router.get('/todo/user/a', safe(getUsers));
-// router.post('/todo/user', safe(createUser));
+router.post('/todo/user', safe(createUser));
 // router.delete('/todo/user/:id', safe(deleteUsers));
 // 
 router.post('/todo/user/', safe(addToDo));
