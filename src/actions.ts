@@ -7,15 +7,30 @@ import { Exception } from './utils'
 export const createUser = async (req: Request, res:Response): Promise<Response> =>{
 
 	// important validations to avoid ambiguos errors, the client needs to understand what went wrong
-	if(!req.body.name) throw new Exception("Ingrese un nombre")
+    if (!req.body.first_name) throw new Exception("Please provide a first_name")
+    if (!req.body.last_name) throw new Exception("Please provide a last_name")
+    if (!req.body.email) throw new Exception("Please provide an email")
+    if (!req.body.password) throw new Exception("Please provide a password")
 
 	const userRepo = getRepository(Users)
 	// fetch for any user with this email
 	const user = await userRepo.findOne({ where: {name: req.body.name }})
 	if(user) throw new Exception("El usuario ya existe")
 
-	const newUser = getRepository(Users).create(req.body);  //Creo un usuario
-	const results = await getRepository(Users).save(newUser); //Grabo el nuevo usuario 
+    const newUser = getRepository(Users).create(req.body);  //Creo un usuario
+    const results = await getRepository(Users).save(newUser); //Grabo el nuevo usuario 
+    const userCreated = await getRepository(Users).findOne(req.params.user_id)
+    if (!userCreated) throw new Exception("El usuario no existe")
+
+	// const newUser = getRepository(Users).create(req.body);  //Creo un usuario
+    // const results = await getRepository(Users).save(newUser); //Grabo el nuevo usuario 
+    // const userCreated = await getRepository(Users).findOne(req.params.id)
+    
+    const todo = new Todo();
+    todo.label = "Ejemplo";
+    todo.done = false;
+    todo.user = userCreated;
+
 	return res.json(results);
 }
 
