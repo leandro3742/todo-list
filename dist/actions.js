@@ -47,7 +47,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.deleteTodos = exports.postTodos = exports.getTodos = exports.getUsers = exports.createUser = void 0;
+exports.deleteUser = exports.deleteTodos = exports.postTodos = exports.getTodos = exports.getUsers = exports.createUser = void 0;
 var typeorm_1 = require("typeorm"); // getRepository"  traer una tabla de la base de datos asociada al objeto
 var Users_1 = require("./entities/Users");
 var utils_1 = require("./utils");
@@ -151,21 +151,53 @@ var postTodos = function (req, res) { return __awaiter(void 0, void 0, void 0, f
 }); };
 exports.postTodos = postTodos;
 var deleteTodos = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var users, results;
+    var users, todo, results;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 console.log("LLega");
+                console.log(req.params);
                 return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).findOne(req.params.user_id)];
             case 1:
                 users = _a.sent();
                 if (!users)
                     throw new utils_1.Exception("The user is not found");
-                return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).remove(users)];
+                return [4 /*yield*/, typeorm_1.getRepository(Todos_1.Todos).findOne(req.params.todo_id)];
             case 2:
+                todo = _a.sent();
+                if (!todo)
+                    throw new utils_1.Exception("The todo is not exist");
+                return [4 /*yield*/, typeorm_1.getRepository(Todos_1.Todos).remove(todo)];
+            case 3:
                 results = _a.sent();
                 return [2 /*return*/, res.json(results)];
         }
     });
 }); };
 exports.deleteTodos = deleteTodos;
+var deleteUser = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, todo, a, results;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).findOne(req.params.user_id)];
+            case 1:
+                user = _a.sent();
+                if (!user)
+                    throw new utils_1.Exception("The user is not exists");
+                console.log(user);
+                return [4 /*yield*/, typeorm_1.getRepository(Todos_1.Todos).findOne({ where: { user: req.body.params } })];
+            case 2:
+                todo = _a.sent();
+                if (!todo)
+                    throw new utils_1.Exception("The todo is not exist");
+                return [4 /*yield*/, typeorm_1.getRepository(Todos_1.Todos).remove(todo)];
+            case 3:
+                a = _a.sent();
+                return [4 /*yield*/, typeorm_1.getRepository(Users_1.Users).remove(user)];
+            case 4:
+                results = _a.sent();
+                return [2 /*return*/, res.json(results)];
+        }
+    });
+}); };
+exports.deleteUser = deleteUser;

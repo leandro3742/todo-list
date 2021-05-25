@@ -66,10 +66,25 @@ export const postTodos = async (req: Request, res: Response): Promise<Response> 
 
 export const deleteTodos = async (req: Request, res: Response): Promise<Response> => {
     console.log("LLega");
+    console.log(req.params)
     const users = await getRepository(Users).findOne(req.params.user_id);
         if (!users) throw new Exception("The user is not found");
+    const todo = await getRepository(Todos).findOne(req.params.todo_id);
+        if(!todo) throw new Exception("The todo is not exist");
 
-    const results = await getRepository(Users).remove(users)
+    const results = await getRepository(Todos).remove(todo)
+    return res.json(results);
+}
+
+export const deleteUser = async (req: Request, res: Response): Promise<Response> => {
+    const user = await getRepository(Users).findOne(req.params.user_id);
+        if (!user) throw new Exception("The user is not exists");
+    console.log(user);
+    
+    const todo = await getRepository(Todos).findOne({ where: {user: req.body.params} });
+        if(!todo) throw new Exception("The todo is not exist");
+    const a = await getRepository(Todos).remove(todo);
+    const results = await getRepository(Users).remove(user)
     return res.json(results);
 }
 

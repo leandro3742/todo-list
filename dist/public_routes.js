@@ -16,5 +16,6 @@ router.post('/user', utils_1.safe(actions_1.createUser));
 router.get('/todos/user/:user_id', utils_1.safe(actions_1.getTodos));
 router.get('/todos/user', utils_1.safe(actions_1.getUsers));
 router.post('/todos/user/:user_id', utils_1.safe(actions_1.postTodos));
-router["delete"]('/user/:user_id', utils_1.safe(actions_1.deleteTodos));
+router["delete"]('/todos/user/:user_id/:todo_id', utils_1.safe(actions_1.deleteTodos));
+router["delete"]('/user/:user_id', utils_1.safe(actions_1.deleteUser));
 exports["default"] = router;

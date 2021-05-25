@@ -8,7 +8,7 @@
  */
 import { Router } from 'express';
 import { safe } from './utils';
-import { getUsers, createUser, getTodos, postTodos, deleteTodos } from './actions';
+import { getUsers, createUser, getTodos, postTodos, deleteTodos, deleteUser } from './actions';
 
 const router = Router();
 
@@ -17,7 +17,7 @@ router.post('/user', safe(createUser));
 router.get('/todos/user/:user_id', safe(getTodos));
 router.get('/todos/user', safe(getUsers));
 router.post('/todos/user/:user_id', safe(postTodos));
-router.delete('/user/:user_id', safe(deleteTodos));
-
+router.delete('/todos/user/:user_id/:todo_id', safe(deleteTodos));
+router.delete('/user/:user_id', safe(deleteUser));
 
 export default router;
