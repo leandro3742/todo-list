@@ -18,6 +18,7 @@ export class Todos extends BaseEntity {
 
 
     @ManyToOne(() => Users, users => users.todos)
+    onDelete: 'CASCADE';
     user: Users;
 
 }
