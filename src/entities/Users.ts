@@ -1,28 +1,27 @@
 import {
   Entity, Column, PrimaryGeneratedColumn, OneToMany, 
-  BaseEntity, JoinTable
+  BaseEntity, JoinColumn
 } from 'typeorm';
 
-import { Todo } from './Todo';
+import { Todos } from './Todos';
 
 @Entity()
-export class Users extends BaseEntity{
-  @PrimaryGeneratedColumn()
-  id: number;
+export class Users extends BaseEntity {
+    @PrimaryGeneratedColumn()
+    userId: number;
 
-  @Column()
-  first_name: string;
+    @Column()
+    first_name: string;
 
-  @Column()
-  last_name: string;
+    @Column()
+    last_name: string;
 
-  @Column()
-  email: string;
+    @Column({ unique: true })
+    email: string;
 
-  @Column()
-  password: string;
+    @Column()
+    password: string;
 
-  @OneToMany(() => Todo, toDo => toDo.label)
-  toDo: Todo;
-  
+    @OneToMany(() => Todos, todos => todos.user)
+    todos: Todos[];
 }
